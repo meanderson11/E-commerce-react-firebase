@@ -12,7 +12,16 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { 
+  getFirestore, 
+  doc, 
+  getDoc, 
+  setDoc, 
+  collection,
+  writeBatch,
+  query,
+  getDocs
+ } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCyTyZgyEqmD6lgFH_4fW45fYAWS3OVvws",
@@ -38,6 +47,54 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+  
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  })
+  await batch.commit();
+  console.log('done');
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+  const categoryMap = querySnapshot.docs.reduce((acc, docsSnapshot) => {
+    const { title, items } = docsSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {})
+
+  return categoryMap;
+}
+
+
+/*
+{
+  hats: {
+    title: 'Hats',
+    items: [
+      {},
+      {}
+    ]
+  },
+  sneakers: {
+    title: 'Sneakers',
+    items: [
+      {},
+      {}
+    ]
+  },
+
+}
+
+*/
 
 export const createUserDocumentFromAuth = async (
   userAuth,
