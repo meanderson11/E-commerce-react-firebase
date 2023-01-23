@@ -15,7 +15,7 @@ export const Body = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  border-radius: 10% 30%;
   background-color: white;
   opacity: 0.7;
   position: absolute;
@@ -42,6 +42,7 @@ export const DirectoryItemContainer = styled.div`
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
+  border-radius: 20%;
   &:hover {
     cursor: pointer;
     & ${BackgroundImage} {

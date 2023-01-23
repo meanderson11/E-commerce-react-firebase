@@ -5,7 +5,7 @@ export const CategoryContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 50px;
-  border-radius: 40%;
+  border-radius: 50%;
 `;
 
 export const Title = styled.h2`
