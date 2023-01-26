@@ -5,7 +5,6 @@ export const CartItemContainer = styled.div`
   display: flex;
   height: 80px;
   margin-bottom: 15px;
-  border-radius: 10% 30%;
   img {
     width: 30%;
   }
@@ -17,6 +16,7 @@ export const ItemDetails = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  padding: 10px 20px;
   span {
     font-size: 16px;
   }
